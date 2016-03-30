@@ -1,0 +1,10 @@
+# Python cache
+
+__pycache__
+*.pyc
+
+# Ignore for emacs autosave file
+
+*~
+[#]*[#]
+.\#*
