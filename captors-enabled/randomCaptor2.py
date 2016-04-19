@@ -2,9 +2,9 @@ from random import random
 
 
 class Captor():
-    id = 2
+    id = 6
     def Captor():
-        self.id = 2
+        self.id = 6
         
 
     def callback(self):

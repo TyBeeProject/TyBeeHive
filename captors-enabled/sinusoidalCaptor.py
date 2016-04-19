@@ -3,9 +3,9 @@ from time import time
 from math import sin, pi
 
 class Captor():
-    id = 3
+    id = 7
     def Captor():
-        self.id = 3
+        self.id = 7
         
 
     def callback(self):
