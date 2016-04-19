@@ -4,9 +4,9 @@ pin = 14
 sensor = Adafruit_Pyhon_DHT.DHT22
 
 class Captor():
-  id = 5
+  id = 2
   def Captor():
-    self.id = 5
+    self.id = 2
     
     
   def callback(self):
