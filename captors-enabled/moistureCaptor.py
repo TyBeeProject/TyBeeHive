@@ -1,4 +1,7 @@
+import Adafruit_Python_DHT
 
+pin = 14
+sensor = Adafruit_Pyhon_DHT.DHT22
 
 class Captor():
   id = 5
@@ -7,9 +10,9 @@ class Captor():
     
     
   def callback(self):
-    moisture = 0
-    #start communication with server
-    
+    moisture,temperature = Adafruit_Python_DHT.read(sensor,pin)
+    if moisture = None:
+      return 0
     return moisture
     
   def getiId(self):
