@@ -11,7 +11,7 @@ class Captor():
     
   def callback(self):
     moisture,temperature = Adafruit_Python_DHT.read(sensor,pin)
-    if moisture = None:
+    if moisture is None:
       return 0
     return moisture
     
