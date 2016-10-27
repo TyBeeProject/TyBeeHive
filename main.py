@@ -29,20 +29,20 @@ def sendMessage (host, port, url, payload):
 if __name__ == "__main__":
 
     ###
-    ### Loading every captors' conf
+    ### Loading every sensors' conf
     ###
     
-    captorsObject = []
-    captorsPath = []
+    sensorsObject = []
+    sensorsPath = []
 
     for root, dirs, files in os.walk(conf.captorPath):
         for name in files:
             if name[-3:] == ".py":
-                captorsPath += [os.path.join(root,name)]
+                sensorsPath += [os.path.join(root,name)]
  
 
     # Charge tout les capteurs et les teste
-    for captorPath in captorsPath :
+    for captorPath in sensorsPath :
     # On essaie d'importer le module du capteur
         try :
             captorLoader = SourceFileLoader('Captor', captorPath).load_module()
@@ -59,7 +59,7 @@ if __name__ == "__main__":
                 e = sys.exc_info()
                 print ('[FAIL] Testing :'+captorPath+' issued :\n' + str(e))
             else:
-                captorsObject.append(captorObject)
+                sensorsObject.append(captorObject)
 
 
     ###
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
         result_list = []
 
-        for captor in captorsObject:
+        for captor in sensorsObject:
             result_list.append(logCaptor(captor))
         #     pool.apply_async(logCaptor, args = (captor,), callback = result_list.append)
         # pool.close()

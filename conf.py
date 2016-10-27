@@ -4,7 +4,7 @@ idHive = 1
 
 pauseDelay = 5
 
-captorPath = '/media/nowhere/Etude/TyBee/Code/TyBeeHive/captors-enabled'
+captorPath = '/media/nowhere/Etude/TyBee/Code/TyBeeHive/sensors-enabled'
 
 hostIP = 'http://127.0.0.1'
 hostPort = '8000'
