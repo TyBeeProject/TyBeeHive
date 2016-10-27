@@ -1,11 +1,11 @@
-pidfile = '/run/tybeeback.pid'
+PID_FILE = '/run/tybeeback.pid'
 
-idHive = 1
+HIVE_ID = 1
 
-pauseDelay = 5
+PAUSE_DELAY = 5
 
-captorPath = '/media/nowhere/Etude/TyBee/Code/TyBeeHive/sensors-enabled'
+SENSORS_PATH = '/media/nowhere/Etude/TyBee/Code/TyBeeHive/sensors-enabled'
 
-hostIP = 'http://127.0.0.1'
-hostPort = '8000'
-hostURL = 'datas/putDatas'
+UPSTREAM_URL = 'http://127.0.0.1'
+UPSTREAM_PORT = 8000
+UPSTREAM_PATH = 'datas/putDatas'
