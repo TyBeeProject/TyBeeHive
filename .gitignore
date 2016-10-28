@@ -7,11 +7,11 @@ randomWalk
 __pycache__
 *.pyc
 
-sensors-enabled/*
-
 # Ignore for emacs autosave file
 
 *~
 [#]*[#]
 .\#*
 
+# Pycharm files :
+.idea/*
