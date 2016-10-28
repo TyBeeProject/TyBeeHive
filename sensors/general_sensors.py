@@ -1,8 +1,7 @@
-
+from sensors import AbstractSensor
 # code adapted for TybeeHive, got from https://gist.github.com/But2ene/a6ebbb1fbcf1dd11f0aec9cf649c97af
 
 import RPi.GPIO as GPIO
-from AbstractSensor import AbstractSensor
 
 
 def createBoolList(size=8):
@@ -122,3 +121,50 @@ class HX711:
 # offset = 0 # TODO : find a proper solution to save calibrated values to sensor_enabled.py
 # n_repetition = 3 # number of times the sensor does the measure to get an average value, useful for accuracy and denoising
 
+
+
+class TemperatureSensor(AbstractSensor):
+    def __init__(self, sensor_id, pin, name=''):
+        super(TemperatureSensor, self).__init__(sensor_id, name)
+        self.sensor_type = Adafruit_Pyhon_DHT.DHT22
+        self.pin = pin
+
+    def callback(self):
+        moisture, temperature = Adafruit_Python_DHT.read(self.sensor_type, self.pin)
+        if temperature is None:
+            return 0
+        return temperature
+
+
+class MoistureSensor(AbstractSensor):
+    def __init__(self, sensor_id, pin, name=''):
+        super(MoistureSensor, self).__init__(sensor_id, name)
+        self.sensor_type = Adafruit_Pyhon_DHT.DHT22
+        self.pin = pin
+
+    def callback(self):
+        moisture, temperature = Adafruit_Python_DHT.read(self.sensor_type, self.pin)
+        if moisture is None:
+            return 0
+        return moisture
+
+
+class WeightSensor(AbstractSensor):
+    def __init__(self, sensor_id,
+                 pin_data, pin_sck, gain=128, n_repetition=3,
+                 scale=1, offset=0,
+                 name=''):
+        super(WeightSensor, self).__init__(sensor_id, name)
+
+        # initialization of interface with load cell amplifier HX711
+        self.weight_sensor = HX711(dout=pin_data, pd_sck=pin_sck, gain=gain)
+        self.weight_sensor.set_scale(scale=scale)
+        self.weight_sensor.set_offset(offset=offset)
+        self.n_repetition = n_repetition
+
+        # hardware start
+        self.weight_sensor.power_down()
+        self.weight_sensor.power_up()
+
+    def callback(self):
+        return self.weight_sensor.get_units(self.n_repetition)

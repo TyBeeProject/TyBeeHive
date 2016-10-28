@@ -1,15 +1,8 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-from abc import ABC, abstractmethod
-
 import conf
-import json
 import requests
 from time import sleep, time
-from multiprocessing import Pool
-from importlib.machinery import SourceFileLoader
 
 
 #############
@@ -30,19 +23,6 @@ def send_message(host, port, url, payload):
     return r
 
 
-class AbstractSensor(ABC):
-    """
-    A template for the Sensor class
-    """
-    def __init__(self, sensor_id, name=""):
-        self.id = sensor_id
-        self.name = name
-
-    @abstractmethod
-    def callback(self):
-        return 0
-
-
 class Message(object):
     """
     A message from a sensor
@@ -55,20 +35,10 @@ class Message(object):
         self.data = data
 
 
-def discover_sensors():
-    """
-    Loading every sensors' conf
-    And check them
-    :return:
-    """
-    import sensor_enabled
-    return sensor_enabled.sensor_list
-
-
-def loop(sensorsObject):
+def loop(sensors):
     """
     Code for the loop which is called everytime
-    :param sensorsObject:
+    :param sensors:
     :return:
     """
     # Loading the new pool
@@ -76,7 +46,7 @@ def loop(sensorsObject):
 
     result_list = []
 
-    for captor in sensorsObject:
+    for captor in sensors:
         result_list.append(logCaptor(captor))
     # pool.apply_async(logCaptor, args = (captor,), callback = result_list.append)
     # pool.close()
@@ -91,7 +61,7 @@ def loop(sensorsObject):
 
 if __name__ == "__main__":
 
-    sensorsObject = discover_sensors()
+    sensorsObject = conf.SENSORS
 
     # Launching every thread
     while "Loic est beau":
