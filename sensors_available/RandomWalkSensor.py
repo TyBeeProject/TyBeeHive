@@ -1,11 +1,11 @@
 from random import random
+from random import random
+from main import AbstractSensor
 
 
-class Captor():
-    id = 6
-    def Captor():
-        self.id = 6
-        
+class RandomWalkSensor(AbstractSensor):
+    def __init__(self, sensor_id, name=''):
+        super(RandomWalkSensor, self).__init__(sensor_id, name)
 
     def callback(self):
         try :
@@ -29,6 +29,3 @@ class Captor():
             pass
         
         return new
-    
-    def getId(self):
-        return self.id
