@@ -1,4 +1,4 @@
-from sensors_utils import AbstractSensor
+from sensors.sensors_utils import AbstractSensor
 # code adapted for TybeeHive, got from https://gist.github.com/But2ene/a6ebbb1fbcf1dd11f0aec9cf649c97af
 
 import RPi.GPIO as GPIO
@@ -11,6 +11,7 @@ def createBoolList(size=8):
     return ret
 
 def initialize_power_pins(pin_vcc, pin_gnd):
+    GPIO.setmode(GPIO.BOARD)
     # initializaion of VVC and GND pin
     GPIO.output(pin_vcc, GPIO.HIGH)
     GPIO.output(pin_gnd, GPIO.LOW)
@@ -133,6 +134,7 @@ class TemperatureSensor(AbstractSensor):
     def __init__(self, sensor_id, pin,
                  pin_vcc, pin_gnd,
                  name=''):
+        import Adafruit_Pyhon_DHT
         super(TemperatureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
@@ -150,6 +152,7 @@ class MoistureSensor(AbstractSensor):
     def __init__(self, sensor_id, pin,
                  pin_vcc, pin_gnd,
                  name=''):
+        import Adafruit_Pyhon_DHT
         super(MoistureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
@@ -169,14 +172,14 @@ class WeightSensor(AbstractSensor):
                  gain=128, n_repetition=3, scale=1, offset=0,
                  name=''):
         super(WeightSensor, self).__init__(sensor_id, name)
-
+        # initialization of power pins
+        initialize_power_pins(pin_vcc, pin_gnd)
         # initialization of interface with load cell amplifier HX711
         self.weight_sensor = HX711(dout=pin_data, pd_sck=pin_sck, gain=gain)
         self.weight_sensor.set_scale(scale=scale)
         self.weight_sensor.set_offset(offset=offset)
         self.n_repetition = n_repetition
-        # initialization of power pins
-        initialize_power_pins(pin_vcc, pin_gnd)
+
 
         # hardware start
         self.weight_sensor.power_down()
