@@ -2,7 +2,7 @@ from random import random
 from math import sin, pi
 from time import time
 
-from sensors import AbstractSensor
+from sensors_utils import AbstractSensor
 
 
 class RandomSensor(AbstractSensor):
