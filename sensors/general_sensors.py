@@ -1,4 +1,4 @@
-from sensors_utils import AbstractSensor
+from sensors.sensors_utils import AbstractSensor
 # code adapted for TybeeHive, got from https://gist.github.com/But2ene/a6ebbb1fbcf1dd11f0aec9cf649c97af
 
 import RPi.GPIO as GPIO
