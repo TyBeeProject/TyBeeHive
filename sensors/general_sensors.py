@@ -10,6 +10,12 @@ def createBoolList(size=8):
         ret.append(False)
     return ret
 
+def initialize_power_pins(pin_vcc, pin_gnd):
+    # initializaion of VVC and GND pin
+    GPIO.output(pin_vcc, GPIO.HIGH)
+    GPIO.output(pin_gnd, GPIO.LOW)
+
+
 class HX711:
     def __init__(self, dout, pd_sck, gain=128):
         # set the pins for clock (SCK) and data (DOUT)
@@ -124,10 +130,14 @@ class HX711:
 
 
 class TemperatureSensor(AbstractSensor):
-    def __init__(self, sensor_id, pin, name=''):
+    def __init__(self, sensor_id, pin,
+                 pin_vcc, pin_gnd,
+                 name=''):
         super(TemperatureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
+        # initialization of power pins
+        initialize_power_pins(pin_vcc, pin_gnd)
 
     def callback(self):
         moisture, temperature = Adafruit_Python_DHT.read(self.sensor_type, self.pin)
@@ -137,10 +147,14 @@ class TemperatureSensor(AbstractSensor):
 
 
 class MoistureSensor(AbstractSensor):
-    def __init__(self, sensor_id, pin, name=''):
+    def __init__(self, sensor_id, pin,
+                 pin_vcc, pin_gnd,
+                 name=''):
         super(MoistureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
+        # initialization of power pins
+        initialize_power_pins(pin_vcc, pin_gnd)
 
     def callback(self):
         moisture, temperature = Adafruit_Python_DHT.read(self.sensor_type, self.pin)
@@ -151,8 +165,8 @@ class MoistureSensor(AbstractSensor):
 
 class WeightSensor(AbstractSensor):
     def __init__(self, sensor_id,
-                 pin_data, pin_sck, gain=128, n_repetition=3,
-                 scale=1, offset=0,
+                 pin_data, pin_sck, pin_vcc, pin_gnd,
+                 gain=128, n_repetition=3, scale=1, offset=0,
                  name=''):
         super(WeightSensor, self).__init__(sensor_id, name)
 
@@ -161,6 +175,8 @@ class WeightSensor(AbstractSensor):
         self.weight_sensor.set_scale(scale=scale)
         self.weight_sensor.set_offset(offset=offset)
         self.n_repetition = n_repetition
+        # initialization of power pins
+        initialize_power_pins(pin_vcc, pin_gnd)
 
         # hardware start
         self.weight_sensor.power_down()

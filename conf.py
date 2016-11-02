@@ -1,4 +1,4 @@
-from sensors import RandomSensor
+from sensors import RandomSensor, WeightSensor
 
 PID_FILE = '/run/tybeeback.pid'
 
@@ -14,5 +14,6 @@ UPSTREAM_PATH = 'datas/putDatas'
 
 # Sensor list with their configuration
 SENSORS = [
-    RandomSensor(0, "random Sensor")
+    RandomSensor(0, "random Sensor"),
+    WeightSensor(1,35,37,33,39, name="weight sensor")
 ]
