@@ -13,7 +13,10 @@ def createBoolList(size=8):
 def initialize_power_pins(pin_vcc, pin_gnd):
     GPIO.setmode(GPIO.BOARD)
     # initializaion of VVC and GND pin
+    GPIO.setup(pin_vcc, GPIO.OUT)
     GPIO.output(pin_vcc, GPIO.HIGH)
+
+    GPIO.setup(pin_gnd, GPIO.OUT)
     GPIO.output(pin_gnd, GPIO.LOW)
 
 
@@ -138,6 +141,7 @@ class TemperatureSensor(AbstractSensor):
         super(TemperatureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
+        GPIO.setup(pin, GPIO.IN)
         # initialization of power pins
         initialize_power_pins(pin_vcc, pin_gnd)
 
@@ -156,6 +160,7 @@ class MoistureSensor(AbstractSensor):
         super(MoistureSensor, self).__init__(sensor_id, name)
         self.sensor_type = Adafruit_Pyhon_DHT.DHT22
         self.pin = pin
+        GPIO.setup(pin, GPIO.IN)
         # initialization of power pins
         initialize_power_pins(pin_vcc, pin_gnd)
 
