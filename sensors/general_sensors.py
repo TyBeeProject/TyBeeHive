@@ -34,7 +34,7 @@ class HX711:
         self.lastVal = 0
 
         # set gain
-        self.set_gain(gain);
+        self.set_gain(gain)
 
     def is_ready(self):
         return GPIO.input(self.DOUT) == 0
